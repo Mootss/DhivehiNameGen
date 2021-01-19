@@ -1,36 +1,42 @@
-import random
+# Author : Moots (github.com/Mootss)
+# This is a script to generate random dhivehi given-names, the script used here is based of an article by ThatMaldivesBlog
+# you can read it for yourself here;
+# source : https://thatmaldivesblog.wordpress.com/2020/07/25/whats-in-a-maldivian-name-the-given-name/
+# they got some other interesting blogs that you might like so go check em out
 
-common = ["z", "sh", "j", "l", "r", "n", "y", "f"]
-vowels = ["a", "e", "i", "o", "u"]
-consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z"]
+from random import choice
 
-types = ["_A_EE_(A)", "sdfghj"] 
+commons = ["z", "sh", "j", "l", "r", "n", "y", "f"] # commonly preferred consonants in dhivehi names
+vowels = ["a", "e", "i", "o", "u", "ai", "au"]
+#consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z"]
 
-opt = 0
+# list of common name structures
+structures = ["_A_EE_", "_AA_I_", "_I_AA_", "_U_AI_", "_A__AAN", "_A__EEN"]
+
+# total 336 possible names
 
 def gen():
+	# name generator function
+	structPick = choice(structures) # choose a random name structure from the structures list
+	placeVowel = "_" # place vowels for where "_" is present
 
-	v1 = random.choice(consonants)
-	v2 = random.choice(consonants)
-	v3 = random.choice(consonants)
+	l = [True,False]; a = choice(l)
+	if a == True:
+		for placeVowel in structPick:
+			# replace "_" with a random vowel for each "_" in the name structure
+			v1, v2, v3 = choice(commons), choice(commons), choice(commons)
+			name = structPick.replace("_", "{}")
+			name = name.format(v1, v2, v3).lower().capitalize()
 
-	l = [1, 2]
+			return name+"a" # with "a" at the end
 
-	opt = random.choice(l)
+	elif a == False:		
+		for placeVowel in structPick:
+			# replace "_" with a random vowel for each "_" in the name structure
+			v1, v2, v3 = choice(commons), choice(commons), choice(commons)
+			name = structPick.replace("_", "{}")
+			name = name.format(v1, v2, v3).lower().capitalize()
 
-	if opt == 1:
-		name =  f'{v1}a{v2}ee{v3}'
-		return name
+			return name # without "a"
 
-	elif opt == 2:
-		name = "{}a{}ee{}".format(v1, v2, v3)
-		return name
-
-		if name.endswith("y"):
-		 	name = name.replace("y", "")
-		 	return name
-
-
-
-print(gen())
-
+# last updated: 19/01/2021
