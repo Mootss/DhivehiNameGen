@@ -1,7 +1,7 @@
 # Author : Moots (github.com/Mootss)
-# This is a script to generate random dhivehi given-names, the script used here is based of an article by ThatMaldivesBlog
+# This is a script to generate a random dhivehi given-name, the script used here is based of an article by ThatMaldivesBlog
 # you can read it for yourself here;
-# source : https://thatmaldivesblog.wordpress.com/2020/07/25/whats-in-a-maldivian-name-the-given-name/
+# https://thatmaldivesblog.wordpress.com/2020/07/25/whats-in-a-maldivian-name-the-given-name/
 # they got some other interesting blogs that you might like so go check em out
 
 from random import choice
@@ -20,23 +20,20 @@ def gen():
 	structPick = choice(structures) # choose a random name structure from the structures list
 	placeVowel = "_" # place vowels for where "_" is present
 
-	l = [True,False]; a = choice(l)
-	if a == True:
-		for placeVowel in structPick:
-			# replace "_" with a random vowel for each "_" in the name structure
-			v1, v2, v3 = choice(commons), choice(commons), choice(commons)
-			name = structPick.replace("_", "{}")
-			name = name.format(v1, v2, v3).lower().capitalize()
+	for placeVowel in structPick:
+		# replace "_" with a random vowel for each "_" in the name structure
+		v1, v2, v3 = choice(commons), choice(commons), choice(commons)
+		name = structPick.replace("_", "{}")
+		name = name.format(v1, v2, v3).lower().capitalize()
 
-			return name+"a" # with "a" at the end
-
-	elif a == False:		
-		for placeVowel in structPick:
-			# replace "_" with a random vowel for each "_" in the name structure
-			v1, v2, v3 = choice(commons), choice(commons), choice(commons)
-			name = structPick.replace("_", "{}")
-			name = name.format(v1, v2, v3).lower().capitalize()
-
+		# make random choice to have "a" at the end or not
+		l = [True,False]; a = choice(l) 
+		if a == True:
 			return name # without "a"
+		elif a == False:
+			return name+"a" # with "a"
 
-# last updated: 19/01/2021
+
+print(gen())
+
+# last updated: 20/01/2021
